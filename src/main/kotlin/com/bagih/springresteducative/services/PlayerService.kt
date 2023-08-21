@@ -24,4 +24,8 @@ class PlayerService(
         }
         return player
     }
+
+    fun addPlayer(player: Player): Player{
+        return playerRepository.save(player)
+    }
 }

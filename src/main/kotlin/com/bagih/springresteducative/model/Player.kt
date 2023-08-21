@@ -20,4 +20,8 @@ data class Player(
     @JsonFormat(pattern = "dd-MM-yyyy")
     private val birthDate: Date,
     private val titles: Int
-)
+){
+    fun setId(id: Int){
+        this.id = id
+    }
+}
