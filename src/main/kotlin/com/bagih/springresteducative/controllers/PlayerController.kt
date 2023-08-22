@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
@@ -18,23 +19,28 @@ class PlayerController(
 ) {
 
     @GetMapping("/welcome")
-    fun welcome(): String{
+    fun welcome(): String {
         return "Welcome brooo"
     }
 
     @GetMapping("/players")
-    fun allPlayers(): List<Player>{
+    fun allPlayers(): List<Player> {
         return playerService.getAllPlayers()
     }
 
     @GetMapping("/player/{id}")
-    fun playerById(@PathVariable id: Int): Player?{
+    fun playerById(@PathVariable id: Int): Player? {
         return playerService.getPlayerById(id)
     }
 
     @PostMapping("/player")
-    fun addPlayer(@RequestBody player: Player): Player{
+    fun addPlayer(@RequestBody player: Player): Player {
         player.setId(0)
         return playerService.addPlayer(player)
+    }
+
+    @PutMapping("/player/{id}")
+    fun updatePlayer(@PathVariable id: Int, @RequestBody player: Player): Player {
+        return playerService.updatePlayer(id, player)
     }
 }
