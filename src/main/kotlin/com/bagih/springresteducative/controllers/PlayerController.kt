@@ -4,6 +4,7 @@ import com.bagih.springresteducative.model.Player
 import com.bagih.springresteducative.services.PlayerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.CrossOrigin
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -54,5 +55,10 @@ class PlayerController(
     @PatchMapping("/player/{id}/titles")
     fun updateTitles(@PathVariable id: Int, @RequestBody titles: Int){
         playerService.updateTitles(id, titles)
+    }
+
+    @DeleteMapping("/player/{id}")
+    fun deletePlayer(@PathVariable id: Int){
+        playerService.deletePlayer(id)
     }
 }

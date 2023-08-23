@@ -71,4 +71,13 @@ class PlayerService(
         }
         playerRepository.updateTitles(id, titles)
     }
+
+    fun deletePlayer(id: Int){
+        val tempPlayer: Optional<Player> = playerRepository.findById(id)
+
+        if(tempPlayer.isEmpty){
+            throw RuntimeException("player with id of $id is not found")
+        }
+        playerRepository.delete(tempPlayer.get())
+    }
 }
