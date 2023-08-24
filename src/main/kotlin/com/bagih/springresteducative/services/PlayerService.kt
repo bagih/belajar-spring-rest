@@ -1,5 +1,6 @@
 package com.bagih.springresteducative.services
 
+import com.bagih.springresteducative.error.PlayerNotFoundException
 import com.bagih.springresteducative.model.Player
 import com.bagih.springresteducative.repository.PlayerRepository
 import jakarta.transaction.Transactional
@@ -38,7 +39,7 @@ class PlayerService(
         val tempPlayer: Optional<Player> = playerRepository.findById(id)
 
         if (tempPlayer.isEmpty){
-            throw RuntimeException("Player with id $id is not found")
+            throw PlayerNotFoundException("Player with id $id is not found")
         }
 
         player.setId(id)
@@ -57,7 +58,7 @@ class PlayerService(
                     ReflectionUtils.setField(it, player.get(), value)
                 }
             }
-        } else throw RuntimeException("player with id of $id is not found")
+        } else throw PlayerNotFoundException("player with id of $id is not found")
 
         return playerRepository.save(player.get())
     }
@@ -67,7 +68,7 @@ class PlayerService(
         val tempPlayer: Optional<Player> = playerRepository.findById(id)
 
         if (tempPlayer.isEmpty){
-            throw RuntimeException("player with id of $id is not found")
+            throw PlayerNotFoundException("player with id of $id is not found")
         }
         playerRepository.updateTitles(id, titles)
     }
@@ -76,7 +77,7 @@ class PlayerService(
         val tempPlayer: Optional<Player> = playerRepository.findById(id)
 
         if(tempPlayer.isEmpty){
-            throw RuntimeException("player with id of $id is not found")
+            throw PlayerNotFoundException("player with id of $id is not found")
         }
         playerRepository.delete(tempPlayer.get())
     }
